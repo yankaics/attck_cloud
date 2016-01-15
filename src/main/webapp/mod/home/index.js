@@ -1,0 +1,1 @@
+$("#home").attr("class", "active");
