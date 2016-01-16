@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import cn.attck.core.scan.PortScan;
+import cn.attck.core.scan.WebScan;
 
 //import cn.attck.core.scan.PortScan;
 
@@ -21,6 +22,7 @@ public class ScanService {
 	@Resource
 	private JdbcTemplate jdbcTemplate;
 
+	// ======================端口扫描===========================
 	/**
 	 * @author lauix
 	 * @param ip
@@ -52,5 +54,21 @@ public class ScanService {
 		String sql = "SELECT * FROM attck_scan_port WHERE user_id=? ORDER BY id desc";
 		List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, new Object[] { user_id });
 		return result;
+	}
+
+	// ======================web扫描===========================
+	/**
+	 * @author lauix
+	 * @param url
+	 *            扫描网站
+	 * @return 获取全部目录列表
+	 */
+	public void webScan(String url, int user_id) {
+		String[] path = new String[1];
+		List<String> list = WebScan.getInstance().getList(url, path);
+		String result = list.toString();
+		result = result.substring(1, result.length() - 1);
+		String sql = "INSERT INTO attck_scan_port(ip,port,user_id) VALUES(?,?,?)";
+		jdbcTemplate.update(sql, new Object[] { url, result, user_id });
 	}
 }

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+@Deprecated
 public class TestJob {
 
 	@Resource

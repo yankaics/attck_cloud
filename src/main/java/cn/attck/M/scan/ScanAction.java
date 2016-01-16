@@ -21,6 +21,7 @@ public class ScanAction {
 	@Resource
 	private ScanService scanService;
 
+	// ======================端口扫描===========================
 	/**
 	 * @author lauix
 	 * @return 返回端口扫描视图
@@ -35,23 +36,6 @@ public class ScanAction {
 			return mv;
 		}
 		mv.setViewName("scan/port");
-		return mv;
-	}
-
-	/**
-	 * @author lauix
-	 * @return 返回网站扫描视图
-	 */
-	@RequestMapping("/web")
-	public ModelAndView web(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView();
-		MvUtil mu = new MvUtil();
-		boolean is = mu.is_login(request);
-		if (is == false) {
-			mv.setViewName("redirect:/index.html");
-			return mv;
-		}
-		mv.setViewName("scan/web");
 		return mv;
 	}
 
@@ -95,6 +79,46 @@ public class ScanAction {
 		int user_id = Integer.parseInt(id.toString());
 		List<Map<String, Object>> result = scanService.queryPort(user_id);
 		mv.addObject("result", result);
+		return mv;
+	}
+
+	// ======================web扫描===========================
+	/**
+	 * @author lauix
+	 * @return 返回网站扫描视图
+	 */
+	@RequestMapping("/web")
+	public ModelAndView web(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		mv.setViewName("scan/web");
+		return mv;
+	}
+
+	/**
+	 * @author lauix
+	 * @url 扫描网站
+	 * @return web扫描存在列表
+	 */
+	@RequestMapping("/addWeb")
+	public @ResponseBody ModelAndView addWeb(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		String url = request.getParameter("url");
+		Object id = request.getSession().getAttribute("id");
+		int user_id = Integer.parseInt(id.toString());
+		scanService.webScan(url, user_id);
+		mv.addObject("status", '1');
 		return mv;
 	}
 }
