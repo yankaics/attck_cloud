@@ -1,56 +1,85 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50090
+Source Server         : localhost_3306
+Source Server Version : 50546
 Source Host           : localhost:3306
 Source Database       : attck_cloud
 
 Target Server Type    : MYSQL
-Target Server Version : 50090
+Target Server Version : 50546
 File Encoding         : 65001
 
-Date: 2016-01-15 09:04:56
+Date: 2016-01-22 19:08:09
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `attck_scan_port`
+-- Table structure for attck_diction
+-- ----------------------------
+DROP TABLE IF EXISTS `attck_diction`;
+CREATE TABLE `attck_diction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `url_path` text,
+  `type` int(2) DEFAULT NULL COMMENT '1 web字典 2',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of attck_diction
+-- ----------------------------
+INSERT INTO `attck_diction` VALUES ('1', '/admin,/admin.php,/static,/test,/static,/adminaa,/123456789,/abcd', '1', '2016-01-22 14:06:47');
+
+-- ----------------------------
+-- Table structure for attck_scan_port
 -- ----------------------------
 DROP TABLE IF EXISTS `attck_scan_port`;
 CREATE TABLE `attck_scan_port` (
-  `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) default NULL,
-  `ip` varchar(255) default NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `ip` varchar(255) DEFAULT NULL,
   `port` text,
-  `create_time` timestamp NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of attck_scan_port
 -- ----------------------------
-INSERT INTO `attck_scan_port` VALUES ('1', '1', '123.57.37.131', '3306', '2016-01-14 22:44:46');
-INSERT INTO `attck_scan_port` VALUES ('2', '1', '123.57.37.131', '80,8081', '2016-01-14 22:44:47');
-INSERT INTO `attck_scan_port` VALUES ('3', '1', '182.92.78.113', '3306, 8080, 3306', '2016-01-14 22:44:48');
-INSERT INTO `attck_scan_port` VALUES ('4', '1', '182.92.184.249', '8080, 22', '2016-01-14 22:51:47');
-INSERT INTO `attck_scan_port` VALUES ('5', '1', '115.239.211.112', '80', '2016-01-14 23:21:00');
-INSERT INTO `attck_scan_port` VALUES ('6', '1', '115.239.211.112', '80', '2016-01-14 23:22:56');
 
 -- ----------------------------
--- Table structure for `attck_user`
+-- Table structure for attck_scan_web
+-- ----------------------------
+DROP TABLE IF EXISTS `attck_scan_web`;
+CREATE TABLE `attck_scan_web` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `url_path` text,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of attck_scan_web
+-- ----------------------------
+INSERT INTO `attck_scan_web` VALUES ('2', '1', 'http://www.atool.org/', '', '2016-01-22 14:29:39');
+
+-- ----------------------------
+-- Table structure for attck_user
 -- ----------------------------
 DROP TABLE IF EXISTS `attck_user`;
 CREATE TABLE `attck_user` (
-  `id` int(11) NOT NULL auto_increment,
-  `account` varchar(255) default NULL,
-  `passwd` varchar(32) default NULL,
-  `nikeName` varchar(12) default NULL,
-  `type` int(2) default NULL,
-  `status` int(2) default NULL,
-  `create_time` timestamp NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `account` varchar(255) DEFAULT NULL,
+  `passwd` varchar(32) DEFAULT NULL,
+  `nikeName` varchar(12) DEFAULT NULL,
+  `type` int(2) DEFAULT NULL,
+  `status` int(2) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

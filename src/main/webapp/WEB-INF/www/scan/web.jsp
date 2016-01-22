@@ -17,7 +17,7 @@
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
-						<button class="btn btn-block btn-primary" style="width: 74px;">Add
+						<button class="btn btn-block btn-primary"  id="addWeb" style="width: 74px;">Add
 							+</button>
 						<div class="box-tools">
 							<div class="input-group" style="width: 150px;">
@@ -33,38 +33,14 @@
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body table-responsive no-padding">
-						<table class="table table-hover">
+						<table class="table table-hover" id="tablelist">
 							<tr>
 								<th style="width: 1%; text-align: center;">#</th>
 								<th style="width: 20%; text-align: center;">Url</th>
 								<th style="width: 19%; text-align: center;">Time</th>
-								<th style="width: 15%; text-align: center;">Status</th>
 								<th style="width: 27%; text-align: center;">Detail</th>
 								<th style="text-align: center;">Operation</th>
 							</tr>
-							<tr>
-								<td style="text-align: center;">1</td>
-								<td style="text-align: center;">www.baidu.com</td>
-								<td style="text-align: center;">2016-01-02 22:24</td>
-								<td style="text-align: center;"><span
-									class="label label-success">Loding ...</span></td>
-								<td style="text-align: center;"><span
-									style="color: #3C8DBC; font-weight: bold;">点击查看</span></td>
-								<td style="text-align: center;"><span
-									class="label label-danger">delete</span></td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">2</td>
-								<td style="text-align: center;">www.hackcode.com</td>
-								<td style="text-align: center;">2016-01-02 10:12</td>
-								<td style="text-align: center;"><span
-									class="label label-warning">Success</span></td>
-								<td style="text-align: center;"><span
-									style="color: #3C8DBC; font-weight: bold;">点击查看</span></td>
-								<td style="text-align: center;"><span
-									class="label label-danger">delete</span></td>
-							</tr>
-
 						</table>
 					</div>
 					<!-- /.box-body -->
@@ -93,5 +69,57 @@
 		</div>
 	</section>
 </div>
+<div class="modal fade" id="modal_id">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">web扫描</h4>
+			</div>
+			<div class="modal-body">
+				<p>
+					<input type="text" class="form-control" id="webUrl"
+						placeholder="请输入URL">
+				</p>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="startWeb">开始扫描</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="urlPath_list">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">web扫描存在路径</h4>
+			</div>
+			<div class="modal-body">
+						
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" id="startWeb">开始扫描</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
 <%@ include file="../public/footer.jsp"%>
 <script src="<%=basePath%>mod/scan/web.js"></script>

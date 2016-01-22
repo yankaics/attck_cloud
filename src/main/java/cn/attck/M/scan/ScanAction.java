@@ -82,6 +82,27 @@ public class ScanAction {
 		return mv;
 	}
 
+	/**
+	 * @author lauix
+	 * @return 删除开放端口数据
+	 */
+	@RequestMapping("/delPort")
+	public @ResponseBody ModelAndView delPort(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		Object id = request.getSession().getAttribute("id");
+		int user_id = Integer.parseInt(id.toString());
+		String p_id = request.getParameter("id");
+		int result = scanService.delPort(user_id, Integer.parseInt(p_id));
+		mv.addObject("result", result);
+		return mv;
+	}
+
 	// ======================web扫描===========================
 	/**
 	 * @author lauix
@@ -119,6 +140,47 @@ public class ScanAction {
 		int user_id = Integer.parseInt(id.toString());
 		scanService.webScan(url, user_id);
 		mv.addObject("status", '1');
+		return mv;
+	}
+
+	/**
+	 * @author lauix
+	 * @return web扫描列表
+	 */
+	@RequestMapping("/queryWeb")
+	public @ResponseBody ModelAndView queryWeb(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		Object id = request.getSession().getAttribute("id");
+		int user_id = Integer.parseInt(id.toString());
+		List<Map<String, Object>> result = scanService.queryWeb(user_id);
+		mv.addObject("result", result);
+		return mv;
+	}
+
+	/**
+	 * @author lauix
+	 * @return 删除web扫描数据
+	 */
+	@RequestMapping("/delWeb")
+	public @ResponseBody ModelAndView delWeb(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		Object id = request.getSession().getAttribute("id");
+		int user_id = Integer.parseInt(id.toString());
+		String w_id = request.getParameter("id");
+		int result = scanService.delWeb(user_id, Integer.parseInt(w_id));
+		mv.addObject("result", result);
 		return mv;
 	}
 }

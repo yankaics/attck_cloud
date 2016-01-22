@@ -114,7 +114,7 @@
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
 
-    <script src="<%=basePath%>libs/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="<%=basePath%>libs/plugins/jQuery/jQuery-2.1.4.min.js"></script> 
     <script src="<%=basePath%>libs/bootstrap/js/jquery-ui.min.js"></script>
     <script>
       $.widget.bridge('uibutton', $.ui.button);

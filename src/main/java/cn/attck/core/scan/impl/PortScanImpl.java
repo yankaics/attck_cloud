@@ -1,7 +1,9 @@
 package cn.attck.core.scan.impl;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.Socket;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,18 +24,19 @@ public class PortScanImpl {
 	 * @param port
 	 *            要扫描的端口
 	 */
-	public PortScanImpl(String ip,int[] port) {
-		for (int i = 0; i <port.length; i++) {
-			try {
-				ss = new Socket(ip, port[i]);
-				list.add(port[i]);
-			} catch (IOException e) {
-				// 不打印任何报错信息
+	public List<Integer> getList(String ip, int[] port) {
+		try {
+			for (int i = 0; i < port.length; i++) {
+				try {
+					this.ss = new Socket(ip, port[i]);
+					this.list.add(port[i]);
+				} catch (IOException e) {
+					// 不打印任何报错信息
+				}
 			}
+		} finally {
+			return this.list;
 		}
 	}
 
-	public List<Integer> getList() {
-		return list;
-	}
 }

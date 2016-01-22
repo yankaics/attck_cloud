@@ -28,8 +28,8 @@ public class PortScan {
 	 *            要扫描的端口
 	 * @return 获取全部开放端口
 	 */
-	public List<Integer> getList(String ip,int[] port) {
-		PortScanImpl ps = new PortScanImpl(ip,port);
-		return ps.getList();
+	public List<Integer> getList(String ip, int[] port) {
+		PortScanImpl ps = new PortScanImpl();
+		return ps.getList(ip, port);
 	}
 }
