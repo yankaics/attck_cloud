@@ -9,7 +9,7 @@ URL ： [www.attck-cloud.com](http://www.attck-cloud.com)
 - 扫描模块
 
 	-  [x]	端口扫描  
-    -  [ ] 目录扫描
+    -  [x] 目录扫描
 	-  [ ] 指纹扫描
 	-  [ ] ip    扫描
 
@@ -25,7 +25,7 @@ URL ： [www.attck-cloud.com](http://www.attck-cloud.com)
 - 钓鱼模块
 
 	-  [ ] 网页钓鱼
-	-  [ ] xss平台
+	-  [x] xss平台
 
 - 网马模块
 
