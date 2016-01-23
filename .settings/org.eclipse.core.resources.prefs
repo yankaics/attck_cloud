@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/www/fishing/xss.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/www/home/index.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/www/index/index.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/www/public/footer.jsp=UTF-8

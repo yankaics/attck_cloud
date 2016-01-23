@@ -123,6 +123,28 @@ public class ScanAction {
 
 	/**
 	 * @author lauix
+	 * @return web扫描URL 列表
+	 */
+	@RequestMapping("/findWeb")
+	public @ResponseBody ModelAndView findWeb(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		String w_id = request.getParameter("id");
+		Object id = request.getSession().getAttribute("id");
+		int user_id = Integer.parseInt(id.toString());
+
+		List<Map<String, Object>> result = scanService.findWeb(Integer.parseInt(w_id), user_id);
+		mv.addObject("result", result);
+		return mv;
+	}
+
+	/**
+	 * @author lauix
 	 * @url 扫描网站
 	 * @return web扫描存在列表
 	 */

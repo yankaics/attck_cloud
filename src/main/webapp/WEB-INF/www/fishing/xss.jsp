@@ -4,11 +4,11 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			网站扫描 <small>Web Scan</small>
+			XSS平台 <small>XSS Platform</small>
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">WebScan</li>
+			<li class="active">XSS平台</li>
 		</ol>
 	</section>
 	<section class="content">
@@ -17,8 +17,8 @@
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
-						<button class="btn btn-block btn-primary"  id="addWeb" style="width: 74px;">Add
-							+</button>
+						<button class="btn btn-block btn-primary" id="addXss"
+							style="width: 74px;">Add +</button>
 						<div class="box-tools">
 							<div class="input-group" style="width: 150px;">
 								<input type="text" name="table_search"
@@ -36,9 +36,12 @@
 						<table class="table table-hover" id="tablelist">
 							<tr>
 								<th style="width: 1%; text-align: center;">#</th>
-								<th style="width: 20%; text-align: center;">Url</th>
-								<th style="width: 19%; text-align: center;">Time</th>
-								<th style="width: 27%; text-align: center;">Detail</th>
+								<th style="width: 10%; text-align: center;">Name</th>
+								<th style="width: 20%; text-align: center;">Desc</th>
+								<th style="width: 10%; text-align: center;">Type</th>
+								<th style="width: 10%; text-align: center;">Num</th>
+								<th style="width: 20%; text-align: center;">Detail</th>
+								<th style="width: 20%; text-align: center;">Time</th>
 								<th style="text-align: center;">Operation</th>
 							</tr>
 						</table>
@@ -53,13 +56,13 @@
 				<div class="box box-solid">
 					<div class="box-header with-border">
 						<i class="fa fa-text-width"></i>
-						<h3 class="box-title">Web Scan Redname</h3>
+						<h3 class="box-title">XSS Platform Redname</h3>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
 						<blockquote>
-							<p>关于网站扫描</p>
-							<small>可能带WWW 和 不带WWW 不是一个网站</small>
+							<p>关于XSS平台</p>
+							<small>目前只支持Cookies获取</small>
 						</blockquote>
 					</div>
 					<!-- /.box-body -->
@@ -77,12 +80,26 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">web扫描</h4>
+				<h4 class="modal-title">XSS平台</h4>
 			</div>
 			<div class="modal-body">
 				<p>
-					<input type="text" class="form-control" id="webUrl"
-						placeholder="请输入URL">
+					<input type="text" class="form-control" id="xssTitle"
+						placeholder="请输入项目名">
+				</p>
+				<p>
+					<textarea class="form-control" rows="3" id="xssDesc"
+						placeholder="描述"></textarea>
+				</p>
+
+				<p>
+					<label class="radio-inline"> <input type="radio"
+						name="types" value="1" checked="checked">cookies
+					</label> <label class="radio-inline"> <input type="radio"
+						name="types" value="2">基础认证钓鱼
+					</label> <label class="radio-inline"> <input type="radio"
+						name="types" value="3">浏览器明文密码
+					</label>
 				</p>
 
 			</div>
@@ -107,9 +124,7 @@
 				</button>
 				<h4 class="modal-title">web扫描存在路径</h4>
 			</div>
-			<div class="modal-body" id="urlPaths">
-					
-			</div>
+			<div class="modal-body" id="urlPaths"></div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			</div>
@@ -121,4 +136,4 @@
 <!-- /.modal -->
 
 <%@ include file="../public/footer.jsp"%>
-<script src="<%=basePath%>mod/scan/web.js"></script>
+<script src="<%=basePath%>mod/fishing/xss.js"></script>

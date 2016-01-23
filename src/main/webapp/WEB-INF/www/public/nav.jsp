@@ -31,7 +31,7 @@
               </a>
             </li>
 			
-			<li id="scan" class="treeview">
+        <li id="scan" class="treeview">
               <a href="#">
                 <i class="fa fa-pie-chart"></i>
                 <span>扫描模块</span>
@@ -42,6 +42,18 @@
                 <li id="web"><a href="<%=basePath%>scan/web.html"><i class="fa fa-circle-o"></i> 网站扫描</a></li>
                 <!-- <li><a href="<%=basePath%>scan/web.html"><i class="fa fa-circle-o"></i> IP 扫描</a></li> -->
                 <!-- <li><a href="<%=basePath%>scan/web.html"><i class="fa fa-circle-o"></i> 指纹扫描</a></li> -->
+              </ul>
+            </li>
+
+           <li id="fishing" class="treeview">
+              <a href="#">
+                <i class="fa fa-pie-chart"></i>
+                <span>钓鱼模块</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+               <li id="xss"><a href="<%=basePath%>fishing/xss.html"><i class="fa fa-circle-o"></i> xss平台</a></li>
+                <!-- <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> 网页钓鱼</a></li> -->
               </ul>
             </li>
 
@@ -81,17 +93,7 @@
               </ul>
             </li>
 
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-pie-chart"></i>
-                <span>钓鱼模块</span>
-                <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> 钓鱼配置</a></li>
-                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> 后端管理</a></li>
-              </ul>
-            </li>
+
 
             <li class="treeview">
               <a href="#">

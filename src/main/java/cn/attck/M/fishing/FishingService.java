@@ -14,9 +14,13 @@ public class FishingService {
 	@Resource
 	private JdbcTemplate jdbcTemplate;
 
-	public List<Map<String, Object>> query() {
-		String sql = "SELECT * from lf_user";
-		List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+	/**
+	 * @author lauix
+	 * 查询当前用户全部XSS
+	 * */
+	public List<Map<String, Object>> queryXss(int userId) {
+		String sql = "SELECT * FROM attck_fishing_xss WHERE user_id=?";
+		List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, new Object[] { userId });
 		return result;
 	}
 }

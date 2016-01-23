@@ -11,6 +11,19 @@ function getLocalTime(nS) {
     return Y + M + D + h + m;
 }
 
+function del(id) {
+    $.ajax({
+        url: 'delPort.html',
+        dataType: 'json',
+        data: {
+            id: id
+        },
+        success: function(data) {
+            history.go(0);
+        }
+    });
+}
+
 $("#addPort").click(function() {
     $('#modal_id').modal();
 });
@@ -52,7 +65,7 @@ function html(id, ip, time, port) {
     _h += '<td style="text-align: center;">' + ip + '</td>';
     _h += '<td style="text-align: center;">' + time + '</td>';
     _h += '<td style="text-align: center;">' + port + '</td>';
-    _h += '<td style="text-align: center;"><span class="label label-danger">delete</span></td>';
+    _h += '<td style="text-align: center;"><span class="label label-danger" style=" cursor: pointer;" onclick="del('+id+')">delete</span></td>';
     _h += '</tr>';
     return _h;
 }
