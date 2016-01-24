@@ -56,8 +56,29 @@ public class FishingAction {
 		mv.addObject("result", result);
 		return mv;
 	}
-	
-	
+
+	/**
+	 * @author lauix 添加XSS项目
+	 */
+	@RequestMapping("/addXss")
+	public @ResponseBody ModelAndView addXss(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		Object id = request.getSession().getAttribute("id");
+		int user_id = Integer.parseInt(id.toString());
+
+		String xssTitle = request.getParameter("xssTitle");
+		String xssDesc = request.getParameter("xssDesc");
+		String types = request.getParameter("types");
+		int result = fishingService.addXss(user_id, xssTitle, xssDesc, Integer.parseInt(types));
+		mv.addObject("result", result);
+		return mv;
+	}
 
 	@RequestMapping("/xssServer")
 	public ModelAndView xssServer(HttpServletRequest request, HttpServletResponse response) {
@@ -65,28 +86,66 @@ public class FishingAction {
 		String type = request.getParameter("type");
 		if (type != null) {
 			String id = request.getParameter("id");
+			String uid = request.getParameter("uid");
+			String json = "";
 			if (Integer.parseInt(type) == 1) {
 				String location = request.getParameter("location");
 				String toplocation = request.getParameter("toplocation");
 				String cookie = request.getParameter("cookie");
 				String opener = request.getParameter("opener");
-
-				mv.addObject("id", id);
-				mv.addObject("location", location);
-				mv.addObject("toplocation", toplocation);
-				mv.addObject("cookie", cookie);
-				mv.addObject("opener", opener);
+				json = location + "|&|" + toplocation + "|&|" + cookie + "|&|" + opener;
 			} else if (Integer.parseInt(type) == 2) {
 				String mycode = request.getParameter("mycode");
 
 				mv.addObject("mycode", mycode);
 			} else if (Integer.parseInt(type) == 3) {
 				String mycode = request.getParameter("mycode");
-
 				mv.addObject("mycode", mycode);
 			}
-
+			fishingService.addXssInfo(Integer.parseInt(id), Integer.parseInt(uid), json);
 		}
+		return mv;
+	}
+
+	/**
+	 * @author lauix XSS INFO
+	 */
+	@RequestMapping("/findXssInfo")
+	public @ResponseBody ModelAndView findXssInfo(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		Object id = request.getSession().getAttribute("id");
+		int user_id = Integer.parseInt(id.toString());
+
+		String x_id = request.getParameter("id");
+		List<Map<String, Object>> result = fishingService.findXssInfo(user_id, Integer.parseInt(x_id));
+		mv.addObject("result", result);
+		return mv;
+	}
+
+	/**
+	 * @author lauix delxss
+	 */
+	@RequestMapping("/delXss")
+	public @ResponseBody ModelAndView delXss(HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		MvUtil mu = new MvUtil();
+		boolean is = mu.is_login(request);
+		if (is == false) {
+			mv.setViewName("redirect:/index.html");
+			return mv;
+		}
+		Object id = request.getSession().getAttribute("id");
+		int user_id = Integer.parseInt(id.toString());
+
+		String x_id = request.getParameter("id");
+		int result = fishingService.delXss(user_id, Integer.parseInt(x_id));
+		mv.addObject("result", result);
 		return mv;
 	}
 }

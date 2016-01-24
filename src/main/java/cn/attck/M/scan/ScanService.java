@@ -111,22 +111,16 @@ public class ScanService {
 		}, keyHolder);
 		int id = keyHolder.getKey().intValue();
 
-		String findSql = "SELECT url_path FROM attck_diction WHERE type=1";
+		String findSql = "SELECT url_path FROM attck_diction_dir";
 		List<Map<String, Object>> listMap = jdbcTemplate.queryForList(findSql);
-		String[] path = null;
 		for (Map<String, Object> map : listMap) {
-			path = map.get("url_path").toString().split(",");
+			String path = map.get("url_path").toString();
+			boolean result = WebScan.getInstance().getList(url, path);
+			if (result == true) {
+				String sqlInser = "INSERT INTO attck_scan_webresult(user_id,web_id,url  VALUES(?,?,?)";
+				jdbcTemplate.update(sqlInser, new Object[] { user_id, id, url + path });
+			}
 		}
-		List<String> list = WebScan.getInstance().getList(url, path);
-		String result = "";
-
-		for (int i = 0; i < list.size(); i++) {
-			result += list.get(i) + ",";
-		}
-		result = result.substring(0, result.length() - 1);
-
-		String updateSql = "UPDATE attck_scan_web SET url_path=? WHERE id=? ";
-		jdbcTemplate.update(updateSql, new Object[] { result, id });
 	}
 
 	/**
@@ -142,7 +136,7 @@ public class ScanService {
 	 * @author lauix 获取web扫描URL数据
 	 */
 	public List<Map<String, Object>> findWeb(int id, int user_id) {
-		String sql = "SELECT url_path FROM attck_scan_web  WHERE id=? and user_id=?";
+		String sql = "SELECT url  as url_path FROM attck_scan_webresult WHERE web_id=? and user_id=?";
 		List<Map<String, Object>> result = jdbcTemplate.queryForList(sql, new Object[] { id, user_id });
 		return result;
 	}

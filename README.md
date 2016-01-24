@@ -10,7 +10,7 @@ URL ： [www.attck-cloud.com](http://www.attck-cloud.com)
 
 	-  [x]	端口扫描  
     -  [x] 目录扫描
-	-  [ ] 指纹扫描
+	-  [x] 指纹扫描
 	-  [ ] ip    扫描
 
 - 注入模块

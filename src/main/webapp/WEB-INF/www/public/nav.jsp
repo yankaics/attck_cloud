@@ -41,7 +41,7 @@
                 <li id="port"><a href="<%=basePath%>scan/port.html"><i class="fa fa-circle-o"></i> 端口扫描</a></li>
                 <li id="web"><a href="<%=basePath%>scan/web.html"><i class="fa fa-circle-o"></i> 网站扫描</a></li>
                 <!-- <li><a href="<%=basePath%>scan/web.html"><i class="fa fa-circle-o"></i> IP 扫描</a></li> -->
-                <!-- <li><a href="<%=basePath%>scan/web.html"><i class="fa fa-circle-o"></i> 指纹扫描</a></li> -->
+                <li><a href="<%=basePath%>scan/web.html"><i class="fa fa-circle-o"></i> 指纹扫描</a></li>
               </ul>
             </li>
 
@@ -146,9 +146,10 @@
             </li> -->
 
             <li class="header">LABELS</li>
-            <!-- <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>云空间</span></a></li> -->
-            <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>通知</span></a></li>
-            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>个人设置</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>云空间</span></a></li>
+            <!-- if${sessionScope.loginType} -->
+            <li id="userList"><a href="<%=basePath%>user/index.html"><i class="fa fa-circle-o text-yellow"></i> <span>用户管理</span></a></li>
+            <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>设置</span></a></li>
           </ul>
         </section>
         <!-- /.sidebar -->

@@ -94,18 +94,19 @@
 
 				<p>
 					<label class="radio-inline"> <input type="radio"
-						name="types" value="1" checked="checked">cookies
-					</label> <label class="radio-inline"> <input type="radio"
+						name="types" value="1" checked="checked">cookies盗取
+					</label>
+					<!--  <label class="radio-inline"> <input type="radio"
 						name="types" value="2">基础认证钓鱼
 					</label> <label class="radio-inline"> <input type="radio"
 						name="types" value="3">浏览器明文密码
-					</label>
+					</label> -->
 				</p>
 
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" class="btn btn-primary" id="startWeb">开始扫描</button>
+				<button type="button" class="btn btn-primary" id="addXsss">添加</button>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -114,7 +115,7 @@
 </div>
 <!-- /.modal -->
 
-<div class="modal fade" id="urlPath_list">
+<div class="modal fade" id="xssInfo_list">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -122,9 +123,11 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title">web扫描存在路径</h4>
+				<h4 class="modal-title">XSS Info</h4>
 			</div>
-			<div class="modal-body" id="urlPaths"></div>
+			<div class="modal-body" id="xssInfo_lists">
+
+			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 			</div>
@@ -135,5 +138,28 @@
 </div>
 <!-- /.modal -->
 
+<div class="modal fade" id="xssConfigInfo">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">XSS Config</h4>
+			</div>
+			<div class="modal-body" id="xssConfigInfos"><p>代码：</p></div>
+						
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<input id='urlPath' type=hidden value="<%=basePath%>">
+<input id='user_id' type=hidden value="${sessionScope.id}">
 <%@ include file="../public/footer.jsp"%>
 <script src="<%=basePath%>mod/fishing/xss.js"></script>
