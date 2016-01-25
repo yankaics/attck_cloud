@@ -149,4 +149,40 @@ public class ScanService {
 		int result = jdbcTemplate.update(sql, new Object[] { w_id, user_id });
 		return result;
 	}
+
+	// ======================指纹扫描===========================
+	/**
+	 * @author lauix
+	 * @param url
+	 *            扫描网站
+	 * @return 获取全部目录列表
+	 */
+	@Async
+	public void fingerprintScan(final String url, final int user_id) {
+		final String sql = "INSERT INTO attck_scan_web(user_id,url,url_path) VALUES(?,?,?)";
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcTemplate.update(new PreparedStatementCreator() {
+			public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+				PreparedStatement psst = connection.prepareStatement(sql, new String[] { "id" });
+				psst.setInt(1, user_id);
+				psst.setString(2, url);
+				psst.setString(3, "正在扫描中...");
+				return psst;
+			}
+		}, keyHolder);
+		int id = keyHolder.getKey().intValue();
+
+		String findSql = "SELECT cms,url FROM attck_diction_cms";
+		List<Map<String, Object>> listMap = jdbcTemplate.queryForList(findSql);
+		for (Map<String, Object> map : listMap) {
+			String path = map.get("url").toString();
+			String cms = map.get("cms").toString();
+			boolean result = WebScan.getInstance().getList(url, path);
+			if (result == true) {
+				String sqlInser = "INSERT INTO attck_scan_webresult(user_id,web_id,url  VALUES(?,?,?)";
+				jdbcTemplate.update(sqlInser, new Object[] { user_id, id, url + path });
+			}
+		}
+	}
+
 }
